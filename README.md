@@ -33,13 +33,13 @@ The software development kit that we're going to use is the [esp-open-sdk](https
 
 ```sh
 mkdir ~/.opt && cd ~/.opt
-git clone --recursive git@gitlab.fon.ofi:labs-dev/nodemcu.git # --recursive since this repo contains more repos
+git clone --recursive https://github.com/Datumatik/nodemcu-build-setup.git # --recursive since this repo contains more repos
 ```
 
 4) Compile a standalone version of the open SDK with vendor SDK files built in. Then add the SDK's bin directory to your PATH environment variable:
 
 ```sh
-cd nodemcu/esp-open-sdk
+cd nodemcu-build-setup/esp-open-sdk
 make STANDALONE=y
 ```
 
@@ -49,14 +49,14 @@ make STANDALONE=y
 The **make** command will take a while so go grab a cup of coffee or something while you wait. It's worth noting that while the standalone SDK is slightly easier to write code for locally, there are a few caveats. See the note from pfalcon [here](https://github.com/pfalcon/esp-open-sdk#building) on portability and licenses. Then add the newly built tools' binary folder to the PATH environment variable. That way your system knows where to look when you try to compile Xtensa code.
 
 ```sh
-echo 'PATH=$PATH:/opt/nodemcu/esp-open-sdk/xtensa-lx106-elf/bin' >> ~/.profile
-PATH=$PATH:~/.opt/nodemcu/esp-open-sdk/xtensa-lx106-elf/bin
+echo 'PATH=$PATH:/opt/nodemcu-build-setup/esp-open-sdk/xtensa-lx106-elf/bin' >> ~/.profile
+PATH=$PATH:~/.opt/nodemcu-build-setup/esp-open-sdk/xtensa-lx106-elf/bin
  ```
 
 Also:
 
 ```sh
-cd ~/.opt/nodemcu/esp-open-sdk
+cd ~/.opt/nodemcu-build-setup/esp-open-sdk
 PATH=$PATH:$PWD/xtensa-lx106-elf/bin
 ```
 
@@ -65,7 +65,7 @@ PATH=$PATH:$PWD/xtensa-lx106-elf/bin
  5. Change the Nodemcu firmware folder:
 
 ```sh
-cd ~/.opt/nodemcu/nodemcu-firmware
+cd ~/.opt/nodemcu-build-setup/nodemcu-firmware
   ```
 
 Nuts and bolts time! A common problem many users of NodeMCU are discussing is running out of room on the chip for program. Since the ESP8266 only has 64 KiB of instruction RAM and 96 KiB of data RAM, space is more or less at a premium. Why would you install I2C and u8g graphics libraries if you have no need for them for this project? By default, all the modules are built, so we're going to comment out the ones we don't want at this time: 
@@ -154,7 +154,7 @@ With the Devkit Version 0.9, we also have to modify the **../nodemcu-firmware/ap
 7. Compile NodeMCU:
 
 ``` sh
-cd ~/.opt/nodemcu/nodemcu-firmware # make your way back to the firmware dir if you weren't there already
+cd ~/.opt/nodemcu-build-setup/nodemcu-firmware # make your way back to the firmware dir if you weren't there already
 make # this might take a while
 ```
  
@@ -177,6 +177,6 @@ make flash # this assumes the tty device is /dev/ttyUSB0
 Or also:
 
 ``` sh
-cd ~/.opt/nodemcu/nodemcu-firmware/
+cd ~/.opt/nodemcu-build-setup/nodemcu-firmware/
 ./tools/esptool.py --port /dev/ttyUSB0 write_flash 0x00000 ./bin/0x00000.bin 0x10000 ./bin/0x10000.bin
  ```
