@@ -1,0 +1,6 @@
+[submodule "nodemcu-firmware"]
+	path = nodemcu-firmware
+	url = https://github.com/Datumatik/nodemcu-firmware.git
+[submodule "esp-open-sdk"]
+	path = esp-open-sdk
+	url = https://github.com/pfalcon/esp-open-sdk.git
